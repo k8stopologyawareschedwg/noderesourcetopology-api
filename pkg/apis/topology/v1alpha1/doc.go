@@ -3,4 +3,4 @@
 // +groupName=topology.node.k8s.io
 
 // Package v1alpha1 is the v1alpha1 version of the API.
-package v1alpha1 // import "k8stopologyawareschedwg/noderesourcetopology-api/pkg/apis/topology/v1alpha1"
+package v1alpha1 // import "github.com/k8stopologyawareschedwg/noderesourcetopology-api/pkg/apis/topology/v1alpha1"
