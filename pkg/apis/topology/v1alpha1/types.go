@@ -1,7 +1,6 @@
 package v1alpha1
 
 import (
-	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	intstr "k8s.io/apimachinery/pkg/util/intstr"
 )
@@ -31,7 +30,7 @@ type Zone struct {
 type ZoneList []Zone
 
 type ResourceInfo struct {
-	Name        v1.ResourceName
+	Name        string             `json:"name"`
 	Allocatable intstr.IntOrString `json:"allocatable"`
 	Capacity    intstr.IntOrString `json:"capacity"`
 }
