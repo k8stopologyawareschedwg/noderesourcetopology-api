@@ -48,7 +48,7 @@ spec:
                       properties:
                         name:
                           type: string
-                        type:
+                        value:
                           type: integer
                   attributes:
                     type: array
@@ -57,7 +57,7 @@ spec:
                       properties:
                         name:
                           type: string
-                        type:
+                        value:
                           type: string
   scope: Namespaced
   names:
