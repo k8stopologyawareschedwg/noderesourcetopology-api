@@ -5,15 +5,17 @@ import (
 	intstr "k8s.io/apimachinery/pkg/util/intstr"
 )
 
+type TopologyManagerPolicy string
+
 const (
-	// Constants of type string represent policy of the worker
+	// Constants of type TopologyManagerPolicy represent policy of the worker
 	// node's resource management component. It's TopologyManager in kubele.
 	// SingleNUMANodeContainerLevel represent single-numa-node policy of
 	// the TopologyManager
-	SingleNUMANodeContainerLevel string = "SingleNUMANodeContainerLevel"
+	SingleNUMANodeContainerLevel TopologyManagerPolicy = "SingleNUMANodeContainerLevel"
 	// SingleNUMANodePodLevel enables pod level resource counting, this policy assumes
 	// TopologyManager policy single-numa-node also was set on the node
-	SingleNUMANodePodLevel string = "SingleNUMANodePodLevel"
+	SingleNUMANodePodLevel TopologyManagerPolicy = "SingleNUMANodePodLevel"
 )
 
 // +genclient
