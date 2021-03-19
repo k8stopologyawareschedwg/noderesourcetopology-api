@@ -16,6 +16,12 @@ const (
 	// SingleNUMANodePodLevel enables pod level resource counting, this policy assumes
 	// TopologyManager policy single-numa-node also was set on the node
 	SingleNUMANodePodLevel TopologyManagerPolicy = "SingleNUMANodePodLevel"
+	// Restricted TopologyManager policy was set on the node
+	Restricted TopologyManagerPolicy = "Restricted"
+	// BestEffort TopologyManager policy was set on the node
+	BestEffort TopologyManagerPolicy = "BestEffort"
+	// None policy is the default policy and does not perform any topology alignment.
+	None TopologyManagerPolicy = "None"
 )
 
 // +genclient
