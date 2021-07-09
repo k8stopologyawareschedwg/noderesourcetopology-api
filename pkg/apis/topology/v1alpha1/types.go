@@ -1,6 +1,7 @@
 package v1alpha1
 
 import (
+	_ "github.com/gogo/protobuf/gogoproto"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	intstr "k8s.io/apimachinery/pkg/util/intstr"
 )
@@ -37,34 +38,45 @@ type NodeResourceTopology struct {
 }
 
 // Zone is the spec for a NodeResourceTopology resource
+// +protobuf=true
 type Zone struct {
-	Name       string           `json:"name"`
-	Type       string           `json:"type"`
-	Parent     string           `json:"parent,omitempty"`
-	Costs      CostList         `json:"costs,omitempty"`
-	Attributes AttributeList    `json:"attributes,omitempty"`
-	Resources  ResourceInfoList `json:"resources,omitempty"`
+	Name       string           `json:"name" protobuf:"bytes,1,opt,name=name"`
+	Type       string           `json:"type" protobuf:"bytes,2,opt,name=type"`
+	Parent     string           `json:"parent,omitempty" protobuf:"bytes,3,opt,name=parent"`
+	Costs      CostList         `json:"costs,omitempty" protobuf:"bytes,4,rep,name=costs"`
+	Attributes AttributeList    `json:"attributes,omitempty" protobuf:"bytes,5,rep,name=attributes"`
+	Resources  ResourceInfoList `json:"resources,omitempty" protobuf:"bytes,6,rep,name=resources"`
 }
 
+// +protobuf=true
 type ZoneList []Zone
 
+// +protobuf=true
 type ResourceInfo struct {
-	Name        string             `json:"name"`
-	Allocatable intstr.IntOrString `json:"allocatable"`
-	Capacity    intstr.IntOrString `json:"capacity"`
+	Name        string             `json:"name" protobuf:"bytes,1,opt,name=name"`
+	Allocatable intstr.IntOrString `json:"allocatable" protobuf:"bytes,2,opt,name=allocatable"`
+	Capacity    intstr.IntOrString `json:"capacity" protobuf:"bytes,3,opt,name=capacity"`
 }
+
+// +protobuf=true
 type ResourceInfoList []ResourceInfo
 
+// +protobuf=true
 type CostInfo struct {
-	Name  string `json:"name"`
-	Value int    `json:"value"`
+	Name  string `json:"name" protobuf:"bytes,1,opt,name=name"`
+	Value int    `json:"value" protobuf:"varint,2,opt,name=value"`
 }
+
+// +protobuf=true
 type CostList []CostInfo
 
+// +protobuf=true
 type AttributeInfo struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
+	Name  string `json:"name" protobuf:"bytes,1,opt,name=name"`
+	Value string `json:"value" protobuf:"bytes,2,opt,name=value"`
 }
+
+// +protobuf=true
 type AttributeList []AttributeInfo
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
