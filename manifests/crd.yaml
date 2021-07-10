@@ -88,18 +88,35 @@ spec:
                         anyOf:
                         - type: integer
                         - type: string
+                        description: Allocatable quantity of the resource, corresponding
+                          to allocatable in node status, i.e. total amount of this
+                          resource available to be used by pods.
+                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                        x-kubernetes-int-or-string: true
+                      available:
+                        anyOf:
+                        - type: integer
+                        - type: string
+                        description: Available is the amount of this resource currently
+                          available for new (to be scheduled) pods, i.e. Allocatable
+                          minus the resources reserved by currently running pods.
                         pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                         x-kubernetes-int-or-string: true
                       capacity:
                         anyOf:
                         - type: integer
                         - type: string
+                        description: Capacity of the resource, corresponding to capacity
+                          in node status, i.e. total amount of this resource that
+                          the node has.
                         pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                         x-kubernetes-int-or-string: true
                       name:
+                        description: Name of the resource.
                         type: string
                     required:
                     - allocatable
+                    - available
                     - capacity
                     - name
                     type: object
