@@ -1,8 +1,8 @@
 package v1alpha1
 
 import (
+	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	intstr "k8s.io/apimachinery/pkg/util/intstr"
 )
 
 type TopologyManagerPolicy string
@@ -51,9 +51,9 @@ type ZoneList []Zone
 
 // ResourceInfo contains information about one resource type.
 type ResourceInfo struct {
-	Name        string             `json:"name"`
-	Allocatable intstr.IntOrString `json:"allocatable"`
-	Capacity    intstr.IntOrString `json:"capacity"`
+	Name        string            `json:"name"`
+	Allocatable resource.Quantity `json:"allocatable"`
+	Capacity    resource.Quantity `json:"capacity"`
 }
 
 // ResourceInfoList contains an array of ResourceInfo objects.
