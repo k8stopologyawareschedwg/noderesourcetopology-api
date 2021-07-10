@@ -51,9 +51,19 @@ type ZoneList []Zone
 
 // ResourceInfo contains information about one resource type.
 type ResourceInfo struct {
-	Name        string            `json:"name"`
+	// Name of the resource.
+	Name string `json:"name"`
+	// Capacity of the resource, corresponding to capacity in node status, i.e.
+	// total amount of this resource that the node has.
+	Capacity resource.Quantity `json:"capacity"`
+	// Allocatable quantity of the resource, corresponding to allocatable in
+	// node status, i.e. total amount of this resource available to be used by
+	// pods.
 	Allocatable resource.Quantity `json:"allocatable"`
-	Capacity    resource.Quantity `json:"capacity"`
+	// Available is the amount of this resource currently available for new (to
+	// be scheduled) pods, i.e. Allocatable minus the resources reserved by
+	// currently running pods.
+	Available resource.Quantity `json:"available"`
 }
 
 // ResourceInfoList contains an array of ResourceInfo objects.
