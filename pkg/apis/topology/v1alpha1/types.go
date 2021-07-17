@@ -57,7 +57,7 @@ type ResourceInfoList []ResourceInfo
 
 type CostInfo struct {
 	Name  string `json:"name"`
-	Value int    `json:"value"`
+	Value int64  `json:"value"`
 }
 type CostList []CostInfo
 
