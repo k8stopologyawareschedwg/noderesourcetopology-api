@@ -27,7 +27,7 @@ const (
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// NodeResourceTopology is a specification for a Foo resource
+// NodeResourceTopology describes node resources and their topology.
 type NodeResourceTopology struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -36,7 +36,7 @@ type NodeResourceTopology struct {
 	Zones            ZoneList `json:"zones"`
 }
 
-// Zone is the spec for a NodeResourceTopology resource
+// Zone represents a resource topology zone, e.g. socket, node, die or core.
 type Zone struct {
 	Name       string           `json:"name"`
 	Type       string           `json:"type"`
@@ -46,25 +46,35 @@ type Zone struct {
 	Resources  ResourceInfoList `json:"resources,omitempty"`
 }
 
+// ZoneList contains an array of Zone objects.
 type ZoneList []Zone
 
+// ResourceInfo contains information about one resource type.
 type ResourceInfo struct {
 	Name        string             `json:"name"`
 	Allocatable intstr.IntOrString `json:"allocatable"`
 	Capacity    intstr.IntOrString `json:"capacity"`
 }
+
+// ResourceInfoList contains an array of ResourceInfo objects.
 type ResourceInfoList []ResourceInfo
 
+// CostInfo describes the cost (or distance) between two Zones.
 type CostInfo struct {
 	Name  string `json:"name"`
 	Value int64  `json:"value"`
 }
+
+// CostList contains an array of CostInfo objects.
 type CostList []CostInfo
 
+// AttributeInfo contains one attribute of a Zone.
 type AttributeInfo struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
+
+// AttributeList contains an array of AttributeInfo objects.
 type AttributeList []AttributeInfo
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
