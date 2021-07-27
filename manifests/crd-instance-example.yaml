@@ -10,34 +10,42 @@ zones:
     resources:
       - name: cpu
         capacity: 20
-        allocatable: 10
+        allocatable: 15
+        available: 10
       - name: vendor/nic1
         capacity: 3
         allocatable: 3
+        available: 3
   - name: node-1
     type: Node
     resources:
       - name: cpu
         capacity: 30
-        allocatable: 15
+        allocatable: 25
+        available: 15
       - name: vendor/nic2
         capacity: 6
         allocatable: 6
+        available: 6
   - name: node-2
     type: Node
     resources:
       - name: cpu
         capacity: 30
-        allocatable: 15
+        allocatable: 25
+        available: 15
       - name: vendor/nic1
         capacity: 3
         allocatable: 3
+        available: 3
   - name: node-3
     type: Node
     resources:
       - name: cpu
         capacity: 30
-        allocatable: 15
+        allocatable: 25
+        available: 15
       - name: vendor/nic1
         capacity: 3
         allocatable: 3
+        available: 3
