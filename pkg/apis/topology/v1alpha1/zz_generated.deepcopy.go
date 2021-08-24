@@ -90,7 +90,11 @@ func (in *NodeResourceTopology) DeepCopyInto(out *NodeResourceTopology) {
 		in, out := &in.Zones, &out.Zones
 		*out = make(ZoneList, len(*in))
 		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(Zone)
+				(*in).DeepCopyInto(*out)
+			}
 		}
 	}
 }
@@ -222,7 +226,11 @@ func (in ZoneList) DeepCopyInto(out *ZoneList) {
 		in := &in
 		*out = make(ZoneList, len(*in))
 		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(Zone)
+				(*in).DeepCopyInto(*out)
+			}
 		}
 	}
 }
