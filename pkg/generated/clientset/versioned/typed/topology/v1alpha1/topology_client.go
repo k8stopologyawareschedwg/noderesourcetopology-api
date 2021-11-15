@@ -36,8 +36,8 @@ type TopologyV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *TopologyV1alpha1Client) NodeResourceTopologies(namespace string) NodeResourceTopologyInterface {
-	return newNodeResourceTopologies(c, namespace)
+func (c *TopologyV1alpha1Client) NodeResourceTopologies() NodeResourceTopologyInterface {
+	return newNodeResourceTopologies(c)
 }
 
 // NewForConfig creates a new TopologyV1alpha1Client for the given config.

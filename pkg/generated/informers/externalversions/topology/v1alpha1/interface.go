@@ -43,5 +43,5 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 
 // NodeResourceTopologies returns a NodeResourceTopologyInformer.
 func (v *version) NodeResourceTopologies() NodeResourceTopologyInformer {
-	return &nodeResourceTopologyInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &nodeResourceTopologyInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
