@@ -30,8 +30,8 @@ type FakeTopologyV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeTopologyV1alpha1) NodeResourceTopologies(namespace string) v1alpha1.NodeResourceTopologyInterface {
-	return &FakeNodeResourceTopologies{c, namespace}
+func (c *FakeTopologyV1alpha1) NodeResourceTopologies() v1alpha1.NodeResourceTopologyInterface {
+	return &FakeNodeResourceTopologies{c}
 }
 
 // RESTClient returns a RESTClient that is used to communicate
