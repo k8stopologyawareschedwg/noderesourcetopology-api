@@ -6,11 +6,13 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// DEPRECATED (to be removed in v1beta1): use top level attributes if needed
 type TopologyManagerPolicy string
 
 const (
 	// Constants of type TopologyManagerPolicy represent policy of the worker
-	// node's resource management component. It's TopologyManager in kubele.
+	// node's resource management component. It's TopologyManager in kubelet.
+	// DEPRECATED (to be removed in v1beta1): use top level attributes if needed
 	// SingleNUMANodeContainerLevel represent single-numa-node policy of
 	// the TopologyManager
 	SingleNUMANodeContainerLevel TopologyManagerPolicy = "SingleNUMANodeContainerLevel"
@@ -43,6 +45,7 @@ type NodeResourceTopology struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
+	// DEPRECATED (to be removed in v1beta1): use top level attributes if needed
 	TopologyPolicies []string `json:"topologyPolicies"`
 	Zones            ZoneList `json:"zones"`
 }
