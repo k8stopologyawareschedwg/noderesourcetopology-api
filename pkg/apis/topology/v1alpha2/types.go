@@ -47,7 +47,9 @@ type NodeResourceTopology struct {
 
 	// DEPRECATED (to be removed in v1beta1): use top level attributes if needed
 	TopologyPolicies []string `json:"topologyPolicies"`
-	Zones            ZoneList `json:"zones"`
+
+	Zones      ZoneList      `json:"zones"`
+	Attributes AttributeList `json:"attributes,omitempty"`
 }
 
 // Zone represents a resource topology zone, e.g. socket, node, die or core.
