@@ -46,7 +46,7 @@ type NodeResourceTopology struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// DEPRECATED (to be removed in v1beta1): use top level attributes if needed
-	TopologyPolicies []string `json:"topologyPolicies"`
+	TopologyPolicies []string `json:"topologyPolicies,omitempty"`
 
 	Zones      ZoneList      `json:"zones"`
 	Attributes AttributeList `json:"attributes,omitempty"`
