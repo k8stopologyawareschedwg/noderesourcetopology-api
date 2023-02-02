@@ -39,6 +39,7 @@ const (
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:scope=Cluster,shortName=node-res-topo
+// +kubebuilder:storageversion
 
 // NodeResourceTopology describes node resources and their topology.
 type NodeResourceTopology struct {
@@ -46,7 +47,7 @@ type NodeResourceTopology struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// DEPRECATED (to be removed in v1beta1): use top level attributes if needed
-	TopologyPolicies []string `json:"topologyPolicies"`
+	TopologyPolicies []string `json:"topologyPolicies,omitempty"`
 
 	Zones      ZoneList      `json:"zones"`
 	Attributes AttributeList `json:"attributes,omitempty"`
