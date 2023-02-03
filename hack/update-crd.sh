@@ -18,13 +18,5 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-controller-gen object crd output:crd:dir=. paths=./pkg/apis/...
+controller-gen object crd output:crd:stdout paths=./pkg/apis/... > manifests/crd.yaml
 
-kubectl annotate --overwrite \
-                 --local=true \
-                 -o yaml \
-                 -f topology.node.k8s.io_noderesourcetopologies.yaml \
-                 "api-approved.kubernetes.io=https://github.com/kubernetes/enhancements/pull/1870" \
-                 > manifests/crd.yaml
-
-rm topology.node.k8s.io_noderesourcetopologies.yaml
