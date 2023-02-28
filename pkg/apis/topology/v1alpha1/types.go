@@ -61,7 +61,7 @@ type Zone struct {
 
 // ZoneList contains an array of Zone objects.
 // +protobuf=true
-type ZoneList []Zone
+type ZoneList []*Zone
 
 // ResourceInfo contains information about one resource type.
 // +protobuf=true
