@@ -26,6 +26,8 @@ import (
 
 // ZoneApplyConfiguration represents a declarative configuration of the Zone type for use
 // with apply.
+//
+// Zone represents a resource topology zone, e.g. socket, node, die or core.
 type ZoneApplyConfiguration struct {
 	Name       *string                            `json:"name,omitempty"`
 	Type       *string                            `json:"type,omitempty"`

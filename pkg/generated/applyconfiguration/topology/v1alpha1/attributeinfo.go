@@ -22,6 +22,8 @@ package v1alpha1
 
 // AttributeInfoApplyConfiguration represents a declarative configuration of the AttributeInfo type for use
 // with apply.
+//
+// AttributeInfo contains one attribute of a Zone.
 type AttributeInfoApplyConfiguration struct {
 	Name  *string `json:"name,omitempty"`
 	Value *string `json:"value,omitempty"`

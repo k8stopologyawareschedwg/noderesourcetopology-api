@@ -26,11 +26,22 @@ import (
 
 // ResourceInfoApplyConfiguration represents a declarative configuration of the ResourceInfo type for use
 // with apply.
+//
+// ResourceInfo contains information about one resource type.
 type ResourceInfoApplyConfiguration struct {
-	Name        *string            `json:"name,omitempty"`
-	Capacity    *resource.Quantity `json:"capacity,omitempty"`
+	// Name of the resource.
+	Name *string `json:"name,omitempty"`
+	// Capacity of the resource, corresponding to capacity in node status, i.e.
+	// total amount of this resource that the node has.
+	Capacity *resource.Quantity `json:"capacity,omitempty"`
+	// Allocatable quantity of the resource, corresponding to allocatable in
+	// node status, i.e. total amount of this resource available to be used by
+	// pods.
 	Allocatable *resource.Quantity `json:"allocatable,omitempty"`
-	Available   *resource.Quantity `json:"available,omitempty"`
+	// Available is the amount of this resource currently available for new (to
+	// be scheduled) pods, i.e. Allocatable minus the resources reserved by
+	// currently running pods.
+	Available *resource.Quantity `json:"available,omitempty"`
 }
 
 // ResourceInfoApplyConfiguration constructs a declarative configuration of the ResourceInfo type for use with
