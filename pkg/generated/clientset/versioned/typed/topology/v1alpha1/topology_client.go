@@ -1,5 +1,5 @@
 /*
-Copyright 2023 The Kubernetes Authors.
+Copyright 2025 The Kubernetes Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,8 +21,10 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha1 "github.com/k8stopologyawareschedwg/noderesourcetopology-api/pkg/apis/topology/v1alpha1"
-	"github.com/k8stopologyawareschedwg/noderesourcetopology-api/pkg/generated/clientset/versioned/scheme"
+	http "net/http"
+
+	topologyv1alpha1 "github.com/k8stopologyawareschedwg/noderesourcetopology-api/pkg/apis/topology/v1alpha1"
+	scheme "github.com/k8stopologyawareschedwg/noderesourcetopology-api/pkg/generated/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 
@@ -41,12 +43,24 @@ func (c *TopologyV1alpha1Client) NodeResourceTopologies() NodeResourceTopologyIn
 }
 
 // NewForConfig creates a new TopologyV1alpha1Client for the given config.
+// NewForConfig is equivalent to NewForConfigAndClient(c, httpClient),
+// where httpClient was generated with rest.HTTPClientFor(c).
 func NewForConfig(c *rest.Config) (*TopologyV1alpha1Client, error) {
 	config := *c
-	if err := setConfigDefaults(&config); err != nil {
+	setConfigDefaults(&config)
+	httpClient, err := rest.HTTPClientFor(&config)
+	if err != nil {
 		return nil, err
 	}
-	client, err := rest.RESTClientFor(&config)
+	return NewForConfigAndClient(&config, httpClient)
+}
+
+// NewForConfigAndClient creates a new TopologyV1alpha1Client for the given config and http client.
+// Note the http client provided takes precedence over the configured transport values.
+func NewForConfigAndClient(c *rest.Config, h *http.Client) (*TopologyV1alpha1Client, error) {
+	config := *c
+	setConfigDefaults(&config)
+	client, err := rest.RESTClientForConfigAndClient(&config, h)
 	if err != nil {
 		return nil, err
 	}
@@ -68,17 +82,15 @@ func New(c rest.Interface) *TopologyV1alpha1Client {
 	return &TopologyV1alpha1Client{c}
 }
 
-func setConfigDefaults(config *rest.Config) error {
-	gv := v1alpha1.SchemeGroupVersion
+func setConfigDefaults(config *rest.Config) {
+	gv := topologyv1alpha1.SchemeGroupVersion
 	config.GroupVersion = &gv
 	config.APIPath = "/apis"
-	config.NegotiatedSerializer = scheme.Codecs.WithoutConversion()
+	config.NegotiatedSerializer = rest.CodecFactoryForGeneratedClient(scheme.Scheme, scheme.Codecs).WithoutConversion()
 
 	if config.UserAgent == "" {
 		config.UserAgent = rest.DefaultKubernetesUserAgent()
 	}
-
-	return nil
 }
 
 // RESTClient returns a RESTClient that is used to communicate

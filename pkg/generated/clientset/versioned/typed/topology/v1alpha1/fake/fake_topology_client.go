@@ -1,5 +1,5 @@
 /*
-Copyright 2023 The Kubernetes Authors.
+Copyright 2025 The Kubernetes Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ type FakeTopologyV1alpha1 struct {
 }
 
 func (c *FakeTopologyV1alpha1) NodeResourceTopologies() v1alpha1.NodeResourceTopologyInterface {
-	return &FakeNodeResourceTopologies{c}
+	return newFakeNodeResourceTopologies(c)
 }
 
 // RESTClient returns a RESTClient that is used to communicate

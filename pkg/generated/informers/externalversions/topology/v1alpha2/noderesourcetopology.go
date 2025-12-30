@@ -1,5 +1,5 @@
 /*
-Copyright 2023 The Kubernetes Authors.
+Copyright 2025 The Kubernetes Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,13 +21,13 @@ limitations under the License.
 package v1alpha2
 
 import (
-	"context"
+	context "context"
 	time "time"
 
-	topologyv1alpha2 "github.com/k8stopologyawareschedwg/noderesourcetopology-api/pkg/apis/topology/v1alpha2"
+	apistopologyv1alpha2 "github.com/k8stopologyawareschedwg/noderesourcetopology-api/pkg/apis/topology/v1alpha2"
 	versioned "github.com/k8stopologyawareschedwg/noderesourcetopology-api/pkg/generated/clientset/versioned"
 	internalinterfaces "github.com/k8stopologyawareschedwg/noderesourcetopology-api/pkg/generated/informers/externalversions/internalinterfaces"
-	v1alpha2 "github.com/k8stopologyawareschedwg/noderesourcetopology-api/pkg/generated/listers/topology/v1alpha2"
+	topologyv1alpha2 "github.com/k8stopologyawareschedwg/noderesourcetopology-api/pkg/generated/listers/topology/v1alpha2"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
@@ -38,7 +38,7 @@ import (
 // NodeResourceTopologies.
 type NodeResourceTopologyInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1alpha2.NodeResourceTopologyLister
+	Lister() topologyv1alpha2.NodeResourceTopologyLister
 }
 
 type nodeResourceTopologyInformer struct {
@@ -58,21 +58,33 @@ func NewNodeResourceTopologyInformer(client versioned.Interface, resyncPeriod ti
 // one. This reduces memory footprint and number of connections to the server.
 func NewFilteredNodeResourceTopologyInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
-		&cache.ListWatch{
+		cache.ToListWatcherWithWatchListSemantics(&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.TopologyV1alpha2().NodeResourceTopologies().List(context.TODO(), options)
+				return client.TopologyV1alpha2().NodeResourceTopologies().List(context.Background(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.TopologyV1alpha2().NodeResourceTopologies().Watch(context.TODO(), options)
+				return client.TopologyV1alpha2().NodeResourceTopologies().Watch(context.Background(), options)
 			},
-		},
-		&topologyv1alpha2.NodeResourceTopology{},
+			ListWithContextFunc: func(ctx context.Context, options v1.ListOptions) (runtime.Object, error) {
+				if tweakListOptions != nil {
+					tweakListOptions(&options)
+				}
+				return client.TopologyV1alpha2().NodeResourceTopologies().List(ctx, options)
+			},
+			WatchFuncWithContext: func(ctx context.Context, options v1.ListOptions) (watch.Interface, error) {
+				if tweakListOptions != nil {
+					tweakListOptions(&options)
+				}
+				return client.TopologyV1alpha2().NodeResourceTopologies().Watch(ctx, options)
+			},
+		}, client),
+		&apistopologyv1alpha2.NodeResourceTopology{},
 		resyncPeriod,
 		indexers,
 	)
@@ -83,9 +95,9 @@ func (f *nodeResourceTopologyInformer) defaultInformer(client versioned.Interfac
 }
 
 func (f *nodeResourceTopologyInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&topologyv1alpha2.NodeResourceTopology{}, f.defaultInformer)
+	return f.factory.InformerFor(&apistopologyv1alpha2.NodeResourceTopology{}, f.defaultInformer)
 }
 
-func (f *nodeResourceTopologyInformer) Lister() v1alpha2.NodeResourceTopologyLister {
-	return v1alpha2.NewNodeResourceTopologyLister(f.Informer().GetIndexer())
+func (f *nodeResourceTopologyInformer) Lister() topologyv1alpha2.NodeResourceTopologyLister {
+	return topologyv1alpha2.NewNodeResourceTopologyLister(f.Informer().GetIndexer())
 }
