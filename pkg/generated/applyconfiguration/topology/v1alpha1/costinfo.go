@@ -22,6 +22,8 @@ package v1alpha1
 
 // CostInfoApplyConfiguration represents a declarative configuration of the CostInfo type for use
 // with apply.
+//
+// CostInfo describes the cost (or distance) between two Zones.
 type CostInfoApplyConfiguration struct {
 	Name  *string `json:"name,omitempty"`
 	Value *int64  `json:"value,omitempty"`

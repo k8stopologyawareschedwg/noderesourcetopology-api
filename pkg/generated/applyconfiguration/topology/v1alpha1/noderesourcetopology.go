@@ -29,6 +29,8 @@ import (
 
 // NodeResourceTopologyApplyConfiguration represents a declarative configuration of the NodeResourceTopology type for use
 // with apply.
+//
+// NodeResourceTopology describes node resources and their topology.
 type NodeResourceTopologyApplyConfiguration struct {
 	v1.TypeMetaApplyConfiguration    `json:",inline"`
 	*v1.ObjectMetaApplyConfiguration `json:"metadata,omitempty"`
@@ -45,6 +47,7 @@ func NodeResourceTopology(name string) *NodeResourceTopologyApplyConfiguration {
 	b.WithAPIVersion("topology.node.k8s.io/v1alpha1")
 	return b
 }
+
 func (b NodeResourceTopologyApplyConfiguration) IsApplyConfiguration() {}
 
 // WithKind sets the Kind field in the declarative configuration to the given value
